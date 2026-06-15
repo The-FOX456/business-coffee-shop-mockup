@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scents & Co. | Perfume Shop</title>
+    <style>
+        /* --- General Styling --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fcf8f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 1.5rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #4a3b32;
+            border-bottom: 2px solid #e0d5cc;
+            padding-bottom: 0.5rem;
+        }
+
+        /* --- Shop Section --- */
+        .perfume-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .perfume-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .perfume-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .perfume-img {
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-size: 3rem;
+        }
+
+        .price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #b5835a;
+            margin: 0.5rem 0;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e6dfd9;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #b5835a;
+        }
+
+        /* --- Alternatives Section --- */
+        .alternatives-box {
+            background: #f0e6df;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .filter-select {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 1rem;
+        }
+
+        /* --- Cart Section --- */
+        .cart-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn {
+            background: #27ae60;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn:hover {
+            background: #219653;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>✨ SCENTS & CO. ✨</h1>
+        <p>Find your signature scent or its perfect alternative</p>
+    </header>
+
+    <div class="container">
+        
+        <section class="alternatives-box">
+            <h2>🔍 Find Perfume Alternatives</h2>
+            <p>Select a fragrance family to view matching alternatives:</p>
+            <br>
+            <select id="scentFilter" class="filter-select" onchange="filterPerfumes()">
+                <option value="all">Show All Fragrances</option>
+                <option value="Fresh & Citrus">Fresh & Citrus</option>
+                <option value="Warm & Spicy">Warm & Spicy</option>
+                <option value="Floral & Sweet">Floral & Sweet</option>
+            </select>
+        </section>
+
+        <h2>🛒 Our Collection</h2>
+        <div class="perfume-grid" id="perfumeGrid">
+            <div class="perfume-card" data-category="Warm & Spicy">
+                <div>
+                    <div class="perfume-img">🪵</div>
+                    <h3>Midnight Noir</h3>
+                    <span class="tag">Warm & Spicy</span>
+                    <p>Notes of oud wood, amber, and rich vanilla.</p>
+                </div>
+                <div>
+                    <div class="price">$85.00</div>
+                    <button onclick="addToCart('Midnight Noir', 85)">Add to Order</button>
+                </div>
+            </div>
+
+            <div class="perfume-card" data-category="Warm & Spicy">
+                <div>
+                    <div class="perfume-img">🍂</div>
+                    <h3>Spice Horizon (Alternative)</h3>
+                    <span class="tag">Warm & Spicy</span>
+                    <p>A lighter alternative to Midnight Noir featuring cinnamon and tobacco leaves.</p>
+                </div>
+                <div>
+                    <div class="price">$45.00</div>
+                    <button onclick="addToCart('Spice Horizon (Alternative)', 45)">Add to Order</button>
+                </div>
+            </div>
+
+            <div class="perfume-card" data-category="Fresh & Citrus">
+                <div>
+                    <div class="perfume-img">🍋</div>
+                    <h3>Citrus Breeze</h3>
+                    <span class="tag">Fresh & Citrus</span>
+                    <p>Energetic burst of Italian bergamot and crisp sea salt.</p>
+                </div>
+                <div>
+                    <div class="price">$75.00</div>
+                    <button onclick="addToCart('Citrus Breeze', 75)">Add to Order</button>
